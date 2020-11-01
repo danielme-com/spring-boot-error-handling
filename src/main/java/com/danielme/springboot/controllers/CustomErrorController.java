@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -33,7 +35,7 @@ public class CustomErrorController implements ErrorController {
             WebRequest webRequest, Model model) {
         logger.info("executing custom error controller");
 
-        if (accept.contains("application/json")) {
+        if (accept.contains(MediaType.APPLICATION_JSON.toString())) {
             return "forward:/errorJSON";
         }
         
@@ -42,7 +44,9 @@ public class CustomErrorController implements ErrorController {
             return "/error/404";
         }
 
-        Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest, true);
+        //Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest, true);
+        Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest,
+                ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
         model.addAllAttributes(mapErrors);
 
         return "error";
@@ -51,7 +55,9 @@ public class CustomErrorController implements ErrorController {
     @RequestMapping("/errorJSON")
     @ResponseBody
     public CustomErrorJson handleErrorJson(HttpServletRequest request, WebRequest webRequest) {
-        Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest, true);
+        //Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest, true);
+        Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest,
+                ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
 
         return new CustomErrorJson((int) request.getAttribute(
                 RequestDispatcher.ERROR_STATUS_CODE),
