@@ -1,21 +1,15 @@
 package com.danielme.springboot.controllers.rest;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.danielme.springboot.model.ValidationError;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.danielme.springboot.model.ValidationError;
+import java.util.List;
+import java.util.stream.Collectors;
 
-//@ControllerAdvice(basePackages = "com.danielme.springboot.controllers.rest")
 @ControllerAdvice(annotations = RestController.class)
 public class ConstraintViolationErrorRestController {
 
@@ -23,7 +17,9 @@ public class ConstraintViolationErrorRestController {
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public List<ValidationError> handleException(MethodArgumentNotValidException ex) {
-        return ex.getBindingResult().getAllErrors().stream().map(this::mapError)
+        return ex.getBindingResult().getAllErrors()
+                .stream()
+                .map(this::mapError)
                 .collect(Collectors.toList());
     }
 
