@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  
 //@ControllerAdvice(basePackages = "com.danielme.springboot.controllers.web")
 @ControllerAdvice(annotations=Controller.class)
-public class ErrorHtmlController {
+public class ErrorHtmlControllerAdvice {
  
-    private static final Logger logger = LoggerFactory.getLogger(ErrorHtmlController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ErrorHtmlControllerAdvice.class);
  
     @ExceptionHandler
     public String handleException(Exception ex, HttpServletRequest request, Model model) {

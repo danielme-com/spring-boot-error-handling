@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice(annotations = RestController.class)
-public class ConstraintViolationErrorRestController {
+public class ConstraintViolationErrorRestControllerAdvice {
 
     @ExceptionHandler
     @ResponseBody

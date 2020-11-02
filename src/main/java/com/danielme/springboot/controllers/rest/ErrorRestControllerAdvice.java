@@ -14,9 +14,9 @@ import com.danielme.springboot.model.CustomErrorJson;
 
 //@ControllerAdvice(basePackages = "com.danielme.springboot.controllers.rest")
 @ControllerAdvice(annotations=RestController.class)
-public class ErrorRestController {
+public class ErrorRestControllerAdvice {
  
-    private static final Logger logger = LoggerFactory.getLogger(ErrorRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(ErrorRestControllerAdvice.class);
    
     @ExceptionHandler
     @ResponseBody
