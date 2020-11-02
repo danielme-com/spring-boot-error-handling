@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
  
 //@ControllerAdvice(basePackages = "com.danielme.springboot.controllers.web")
-@Controller
 @ControllerAdvice(annotations=Controller.class)
 public class ErrorHtmlController {
  
