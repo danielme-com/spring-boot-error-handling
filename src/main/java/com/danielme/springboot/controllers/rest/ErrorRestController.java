@@ -8,10 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.danielme.springboot.model.CustomErrorJson;
 
@@ -23,6 +20,7 @@ public class ErrorRestController {
    
     @ExceptionHandler
     @ResponseBody
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public CustomErrorJson handleException(Exception ex, HttpServletRequest request) {
         logger.info("executing exception handler (REST)");
  
