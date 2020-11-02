@@ -27,6 +27,7 @@ public class ErrorHtmlControllerAdvice {
         model.addAttribute("error", ex.getClass().getName());
         model.addAttribute("message", ex.getMessage());
         model.addAttribute("path", request.getRequestURI());
+        model.addAttribute("jdk", System.getProperty("java.version"));
  
         StringWriter sw = new StringWriter();
         ex.printStackTrace(new PrintWriter(sw));
