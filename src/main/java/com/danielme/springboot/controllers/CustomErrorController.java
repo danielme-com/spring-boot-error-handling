@@ -62,7 +62,7 @@ public class CustomErrorController implements ErrorController {
     }
 
     private boolean isREST(String accept) {
-        return accept.contains(MediaType.APPLICATION_JSON.toString());
+        return MediaType.APPLICATION_JSON.toString().equalsIgnoreCase(accept);
     }
 
     private boolean is404(HttpServletRequest request) {
