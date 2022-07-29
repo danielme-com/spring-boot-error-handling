@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
  
-//@ControllerAdvice(basePackageClasses = ForceErrorJspController.class)
-@ControllerAdvice(annotations=Controller.class)
+@ControllerAdvice(basePackageClasses = ForceErrorJspController.class)
+//@ControllerAdvice(annotations=Controller.class)
 public class ErrorHtmlControllerAdvice {
  
     private static final Logger logger = LoggerFactory.getLogger(ErrorHtmlControllerAdvice.class);
