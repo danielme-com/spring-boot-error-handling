@@ -1,4 +1,4 @@
-package com.danielme.springboot.controllers.rest;
+package com.danielme.springboot.controllers.errors.advices;
 
 import com.danielme.springboot.model.ValidationError;
 import org.springframework.http.HttpStatus;

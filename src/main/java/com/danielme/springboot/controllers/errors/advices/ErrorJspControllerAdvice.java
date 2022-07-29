@@ -1,6 +1,7 @@
-package com.danielme.springboot.controllers.web;
+package com.danielme.springboot.controllers.errors.advices;
 
-import com.danielme.springboot.ExceptionUtils;
+import com.danielme.springboot.controllers.errors.ExceptionUtils;
+import com.danielme.springboot.controllers.web.ForceErrorJspController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

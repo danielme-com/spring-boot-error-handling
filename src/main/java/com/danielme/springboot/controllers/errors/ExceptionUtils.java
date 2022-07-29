@@ -1,4 +1,4 @@
-package com.danielme.springboot;
+package com.danielme.springboot.controllers.errors;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

@@ -1,6 +1,6 @@
-package com.danielme.springboot.controllers.rest;
+package com.danielme.springboot.controllers.errors.advices;
 
-import com.danielme.springboot.ExceptionUtils;
+import com.danielme.springboot.controllers.errors.ExceptionUtils;
 import com.danielme.springboot.model.CustomErrorJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

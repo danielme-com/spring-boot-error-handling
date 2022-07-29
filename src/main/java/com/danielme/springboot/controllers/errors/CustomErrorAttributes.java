@@ -1,4 +1,4 @@
-package com.danielme.springboot.controllers;
+package com.danielme.springboot.controllers.errors;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.danielme.springboot.controllers;
+package com.danielme.springboot.controllers.errors;
 
 import com.danielme.springboot.model.CustomErrorJson;
 import org.slf4j.Logger;
