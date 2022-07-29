@@ -23,6 +23,7 @@ public class ErrorJspControllerAdvice {
  
         model.addAttribute("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         model.addAttribute("error", ex.getClass().getName());
+        model.addAttribute("exception", ex.getClass());
         model.addAttribute("message", ex.getMessage());
         model.addAttribute("path", request.getRequestURI());
         model.addAttribute("jdk", System.getProperty("java.version"));

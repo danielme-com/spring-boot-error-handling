@@ -17,6 +17,7 @@
     <ul>
         <li>status: <c:out value="${requestScope.status}" /></li>
         <li>error: <c:out value="${requestScope.error}" /></li>
+        <li>exception: <c:out value="${requestScope.exception}" /></li>
         <li>message: <c:out value="${requestScope.message}" /></li>
         <li>path: <c:out value="${requestScope.path}" /></li>
         <li>jdk: <c:out value="${requestScope.jdk}" /></li>

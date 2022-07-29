@@ -41,9 +41,7 @@ public class CustomErrorController implements ErrorController {
             return "/error/404";
         }
 
-        Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest,
-                ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
-        model.addAllAttributes(mapErrors);
+        model.addAllAttributes(buildMapErrors(webRequest));
 
         return "error";
     }
@@ -51,8 +49,7 @@ public class CustomErrorController implements ErrorController {
     @RequestMapping("/errorJSON")
     @ResponseBody
     public CustomErrorJson handleErrorJson(HttpServletRequest request, WebRequest webRequest) {
-        Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest,
-                ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
+        Map<String, Object> mapErrors = buildMapErrors(webRequest);
         int status = (int) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         return new CustomErrorJson(status,
                 (String) mapErrors.get("error"),
@@ -68,6 +65,14 @@ public class CustomErrorController implements ErrorController {
     private boolean is404(HttpServletRequest request) {
         return HttpStatus.NOT_FOUND
                 .value() == (int) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+    }
+
+    private Map<String, Object> buildMapErrors(WebRequest webRequest) {
+        ErrorAttributeOptions options = ErrorAttributeOptions.of(
+                ErrorAttributeOptions.Include.STACK_TRACE,
+                ErrorAttributeOptions.Include.EXCEPTION,
+                ErrorAttributeOptions.Include.MESSAGE);
+        return errorAttributes.getErrorAttributes(webRequest, options);
     }
 
 }
