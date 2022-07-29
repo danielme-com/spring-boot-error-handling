@@ -11,13 +11,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice(annotations = RestController.class)
-public class ConstraintViolationErrorRestControllerAdvice {
+public class ConstraintViolationRestControllerAdvice {
 
     @ExceptionHandler
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public List<ValidationError> handleException(MethodArgumentNotValidException ex) {
-        return ex.getBindingResult().getAllErrors()
+        return ex.getBindingResult()
+                .getAllErrors()
                 .stream()
                 .map(this::mapError)
                 .collect(Collectors.toList());

@@ -1,10 +1,6 @@
 package com.danielme.springboot.controllers;
 
-import java.util.Map;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
-
+import com.danielme.springboot.model.CustomErrorJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 
-import com.danielme.springboot.model.CustomErrorJson;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
 
 @Controller
 public class CustomErrorController implements ErrorController {
@@ -31,45 +30,44 @@ public class CustomErrorController implements ErrorController {
     private ErrorAttributes errorAttributes;
 
     @RequestMapping("/error")
-    public String handleError(@RequestHeader("Accept") String accept, HttpServletRequest request, 
-            WebRequest webRequest, Model model) {
+    public String handleError(@RequestHeader("Accept") String accept, HttpServletRequest request, WebRequest webRequest, Model model) {
         logger.info("executing custom error controller");
 
-        if (accept.contains(MediaType.APPLICATION_JSON.toString())) {
+        if (isREST(accept)) {
             return "forward:/errorJSON";
         }
-        
-        if (HttpStatus.NOT_FOUND
-                .value() == (int) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE)) {
+
+        if (is404(request)) {
             return "/error/404";
         }
 
-        //Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest, true);
         Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest,
                 ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
         model.addAllAttributes(mapErrors);
 
         return "error";
     }
-    
+
     @RequestMapping("/errorJSON")
     @ResponseBody
     public CustomErrorJson handleErrorJson(HttpServletRequest request, WebRequest webRequest) {
-        //Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest, true);
         Map<String, Object> mapErrors = errorAttributes.getErrorAttributes(webRequest,
                 ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
-
-        return new CustomErrorJson((int) request.getAttribute(
-                RequestDispatcher.ERROR_STATUS_CODE),
+        int status = (int) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        return new CustomErrorJson(status,
                 (String) mapErrors.get("error"),
                 (String) mapErrors.get("message"),
                 (String) mapErrors.get("path"),
                 (String) mapErrors.get("trace"));
     }
 
-    @Override
-    public String getErrorPath() {
-        return "/error";
+    private boolean isREST(String accept) {
+        return accept.contains(MediaType.APPLICATION_JSON.toString());
+    }
+
+    private boolean is404(HttpServletRequest request) {
+        return HttpStatus.NOT_FOUND
+                .value() == (int) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
     }
 
 }

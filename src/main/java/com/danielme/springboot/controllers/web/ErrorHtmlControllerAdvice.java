@@ -1,10 +1,6 @@
 package com.danielme.springboot.controllers.web;
- 
-import java.io.PrintWriter;
-import java.io.StringWriter;
- 
-import javax.servlet.http.HttpServletRequest;
 
+import com.danielme.springboot.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import javax.servlet.http.HttpServletRequest;
  
-//@ControllerAdvice(basePackages = "com.danielme.springboot.controllers.web")
+//@ControllerAdvice(basePackageClasses = ForceErrorJspController.class)
 @ControllerAdvice(annotations=Controller.class)
 public class ErrorHtmlControllerAdvice {
  
@@ -28,11 +26,9 @@ public class ErrorHtmlControllerAdvice {
         model.addAttribute("message", ex.getMessage());
         model.addAttribute("path", request.getRequestURI());
         model.addAttribute("jdk", System.getProperty("java.version"));
- 
-        StringWriter sw = new StringWriter();
-        ex.printStackTrace(new PrintWriter(sw));
- 
-        model.addAttribute("trace", sw.toString());
+        model.addAttribute("trace", ExceptionUtils.buildTrace(ex));
+
         return "error";
     }
+
 }

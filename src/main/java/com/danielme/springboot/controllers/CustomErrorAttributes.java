@@ -21,11 +21,11 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
         return errorAttributes;
     }*/
 
-    //sólo para Spring Boot 2.3
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
         Map<String, Object> errorAttributes = super.getErrorAttributes(webRequest, options);
         errorAttributes.put("jdk", System.getProperty("java.version"));
         return errorAttributes;
     }
+
 }
