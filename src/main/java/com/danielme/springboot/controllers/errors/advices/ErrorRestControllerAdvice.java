@@ -26,7 +26,8 @@ public class ErrorRestControllerAdvice {
                 ex.getClass().getName(),
                 ex.getMessage(),
                 request.getRequestURI(),
-                ExceptionUtils.buildTrace(ex));
+                ExceptionUtils.buildTrace(ex),
+                System.getProperty("java.version"));
     }
 
 }

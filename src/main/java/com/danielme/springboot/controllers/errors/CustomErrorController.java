@@ -55,7 +55,8 @@ public class CustomErrorController implements ErrorController {
                 (String) mapErrors.get("error"),
                 (String) mapErrors.get("message"),
                 (String) mapErrors.get("path"),
-                (String) mapErrors.get("trace"));
+                (String) mapErrors.get("trace"),
+                (String) mapErrors.get("jdk"));
     }
 
     private boolean isREST(String accept) {
