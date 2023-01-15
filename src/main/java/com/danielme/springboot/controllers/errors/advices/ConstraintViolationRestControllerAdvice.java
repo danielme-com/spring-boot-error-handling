@@ -1,6 +1,7 @@
 package com.danielme.springboot.controllers.errors.advices;
 
 import com.danielme.springboot.model.ValidationError;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Order(0)
 @ControllerAdvice(annotations = RestController.class)
 public class ConstraintViolationRestControllerAdvice {
 

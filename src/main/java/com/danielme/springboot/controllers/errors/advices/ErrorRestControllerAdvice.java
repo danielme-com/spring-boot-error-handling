@@ -4,12 +4,13 @@ import com.danielme.springboot.controllers.errors.ExceptionUtils;
 import com.danielme.springboot.model.CustomErrorJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-//@ControllerAdvice(basePackageClasses = ForceErrorRestController.class)
+@Order(1)
 @ControllerAdvice(annotations = RestController.class)
 public class ErrorRestControllerAdvice {
 
